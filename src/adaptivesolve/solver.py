@@ -51,7 +51,13 @@ def decision(raw):
 
 class Solver:
     def __init__(self, backend: Backend, threshold=0.8, max_attempts=3):
-        if not math.isfinite(threshold) or not 0 <= threshold <= 1 or not 1 <= max_attempts <= 10:
+        if (
+            type(threshold) not in (int, float)
+            or not 0 <= threshold <= 1
+            or not math.isfinite(threshold)
+            or type(max_attempts) is not int
+            or not 1 <= max_attempts <= 10
+        ):
             raise ValueError("threshold must be in [0,1]; max_attempts must be in [1,10]")
         self.backend = backend
         self.threshold = threshold

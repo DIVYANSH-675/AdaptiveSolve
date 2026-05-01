@@ -86,3 +86,19 @@ def test_oversized_confidence_is_rejected_without_overflow():
 
     with pytest.raises(ValueError):
         decision(json.dumps(dict(mode="direct", confidence=10**1000, answer=1)))
+
+
+@pytest.mark.parametrize(
+    "options",
+    [
+        {"max_attempts": 2.5},
+        {"max_attempts": True},
+        {"max_attempts": 0},
+        {"threshold": True},
+        {"threshold": "0.8"},
+        {"threshold": 10**1000},
+    ],
+)
+def test_solver_rejects_invalid_options_before_calling_backend(options):
+    with pytest.raises(ValueError, match="threshold"):
+        Solver(ReplayBackend([]), **options)
