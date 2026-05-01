@@ -1,0 +1,4 @@
+[
+  {"mode": "direct", "confidence": 0.4, "answer": 4},
+  {"mode": "program", "confidence": 0.9, "expression": "sum(numbers) / len(numbers)"}
+]

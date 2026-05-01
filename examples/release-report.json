@@ -1,0 +1,339 @@
+{
+  "note": "Scripted workflow test; accuracy is not an LLM benchmark result.",
+  "seed": 13,
+  "count": 20,
+  "accuracy": 1.0,
+  "model_calls": 20,
+  "rows": [
+    {
+      "question": "What is -34 + -26?",
+      "symbols": {},
+      "expected": -60,
+      "correct": true,
+      "answer": -60,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          75,
+          75,
+          -53,
+          66,
+          -41,
+          70,
+          -63,
+          -43
+        ]
+      },
+      "expected": 86,
+      "correct": true,
+      "answer": 86,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is 64 + 87?",
+      "symbols": {},
+      "expected": 151,
+      "correct": true,
+      "answer": 151,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          -53,
+          -67,
+          -82,
+          36,
+          -46,
+          90,
+          -25,
+          -93
+        ]
+      },
+      "expected": -240,
+      "correct": true,
+      "answer": -240,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is 10 + -68?",
+      "symbols": {},
+      "expected": -58,
+      "correct": true,
+      "answer": -58,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          75,
+          55,
+          -97,
+          -30,
+          -63,
+          -79,
+          -33,
+          15
+        ]
+      },
+      "expected": -157,
+      "correct": true,
+      "answer": -157,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is 90 + 11?",
+      "symbols": {},
+      "expected": 101,
+      "correct": true,
+      "answer": 101,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          -65,
+          -35,
+          -9,
+          -41,
+          24,
+          93,
+          40,
+          44
+        ]
+      },
+      "expected": 51,
+      "correct": true,
+      "answer": 51,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is 9 + 71?",
+      "symbols": {},
+      "expected": 80,
+      "correct": true,
+      "answer": 80,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          -7,
+          10,
+          63,
+          -20,
+          67,
+          -70,
+          -12,
+          52
+        ]
+      },
+      "expected": 83,
+      "correct": true,
+      "answer": 83,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is 62 + -33?",
+      "symbols": {},
+      "expected": 29,
+      "correct": true,
+      "answer": 29,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          76,
+          14,
+          41,
+          56,
+          91,
+          -66,
+          12,
+          73
+        ]
+      },
+      "expected": 297,
+      "correct": true,
+      "answer": 297,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is 86 + 13?",
+      "symbols": {},
+      "expected": 99,
+      "correct": true,
+      "answer": 99,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          37,
+          -55,
+          -25,
+          -49,
+          -55,
+          33,
+          -9,
+          -36
+        ]
+      },
+      "expected": -159,
+      "correct": true,
+      "answer": -159,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is -5 + 17?",
+      "symbols": {},
+      "expected": 12,
+      "correct": true,
+      "answer": 12,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          -33,
+          55,
+          -29,
+          1,
+          -67,
+          47,
+          25,
+          40
+        ]
+      },
+      "expected": 39,
+      "correct": true,
+      "answer": 39,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is -40 + 44?",
+      "symbols": {},
+      "expected": 4,
+      "correct": true,
+      "answer": 4,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          -40,
+          -51,
+          79,
+          -7,
+          -67,
+          -82,
+          10,
+          66
+        ]
+      },
+      "expected": -92,
+      "correct": true,
+      "answer": -92,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "What is 61 + 18?",
+      "symbols": {},
+      "expected": 79,
+      "correct": true,
+      "answer": 79,
+      "mode": "direct",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    },
+    {
+      "question": "Sum the supplied numbers.",
+      "symbols": {
+        "numbers": [
+          -1,
+          -100,
+          84,
+          8,
+          -89,
+          -43,
+          -64,
+          27
+        ]
+      },
+      "expected": -178,
+      "correct": true,
+      "answer": -178,
+      "mode": "program",
+      "calls": 1,
+      "repairs": 0,
+      "errors": []
+    }
+  ]
+}
