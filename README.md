@@ -69,6 +69,20 @@ CI runs the suite on Python 3.10 and 3.12. Small synthetic runs validate softwar
 
 This controller is not the PIPS model or a reproduction of its benchmark results. It has no trained router, live LLM adapter, general Python executor, or calibrated confidence estimator. The scripted demo's accuracy only confirms workflow behavior. Confidence comes from the backend and may be wrong; numerical execution does not prove that a generated program matches the question. Evaluate actual model decisions on independently labeled tasks before claiming reasoning improvements.
 
+## Configuring routing and retries
+
+`Solver` accepts a finite numeric confidence threshold in `[0, 1]` and an integer `max_attempts` in `[1, 10]`. Booleans are not accepted for either setting. Fractional attempt counts and string thresholds raise `ValueError` during construction, before any backend call.
+
+```python
+from adaptivesolve.solver import DemoBackend, Solver
+
+solver = Solver(DemoBackend(), threshold=0.85, max_attempts=3)
+result = solver.solve('What is 2 + 3?')
+assert result.answer == 5
+```
+
+The attempt budget counts all backend responses, including confidence-triggered program requests and repair attempts. A backend adapter should impose its own timeout; the attempt count is not a wall-clock limit. After the budget is exhausted, the solver raises `ValueError` with the collected error trace.
+
 ## License
 
 The original code in this repository is MIT licensed, copyright 2026 Divyansh Gupta. See [LICENSE](LICENSE). The cited paper is a separate work; this code's license does not relicense the paper or external datasets.
