@@ -77,7 +77,7 @@ This controller is not the PIPS model or a reproduction of its benchmark results
 from adaptivesolve.solver import DemoBackend, Solver
 
 solver = Solver(DemoBackend(), threshold=0.85, max_attempts=3)
-result = solver.solve('What is 2 + 3?')
+result = solver.solve("What is 2 + 3?")
 assert result.answer == 5
 ```
 
