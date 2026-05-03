@@ -3,6 +3,7 @@ import json
 from dataclasses import asdict
 from pathlib import Path
 
+from . import __version__
 from .solver import DemoBackend, ReplayBackend, Solver, benchmark
 
 
@@ -10,6 +11,7 @@ def main():
     p = argparse.ArgumentParser(
         description="Adaptive arithmetic reasoning with bounded expression execution"
     )
+    p.add_argument("--version", action="version", version="adaptivesolve " + __version__)
     p.add_argument("command", choices=["demo", "solve"])
     p.add_argument("--question")
     p.add_argument("--symbols", default="{}", help="JSON object of numeric symbols")
