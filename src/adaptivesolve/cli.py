@@ -4,6 +4,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from . import __version__
+from .artifacts import write_json
 from .solver import DemoBackend, ReplayBackend, Solver, benchmark
 
 
@@ -42,8 +43,5 @@ def main():
             report = asdict(Solver(backend, a.threshold, a.max_attempts).solve(a.question, symbols))
     except (ValueError, OSError) as error:
         p.error(str(error))
-    output = Path(a.output)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    with output.open("x") as stream:
-        json.dump(report, stream, indent=2, allow_nan=False)
+    write_json(a.output, report)
     print(json.dumps({k: v for k, v in report.items() if k != "rows"}, allow_nan=False))
