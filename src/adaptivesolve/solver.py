@@ -25,12 +25,23 @@ class Result:
     errors: list
 
 
+def _unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("Duplicate JSON key: " + key)
+        result[key] = value
+    return result
+
+
 def decision(raw):
     if not isinstance(raw, str) or len(raw) > 16384:
         raise ValueError("Backend response must be a JSON string up to 16384 characters")
     try:
         value = json.loads(
-            raw, parse_constant=lambda value: (_ for _ in ()).throw(ValueError("Non-finite JSON"))
+            raw,
+            object_pairs_hook=_unique_object,
+            parse_constant=lambda value: (_ for _ in ()).throw(ValueError("Non-finite JSON")),
         )
     except (json.JSONDecodeError, RecursionError) as error:
         raise ValueError("Backend returned invalid JSON") from error

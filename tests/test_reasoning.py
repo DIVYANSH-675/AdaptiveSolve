@@ -116,3 +116,8 @@ def test_forced_program_rejection_reports_the_actual_cause():
     assert result.answer == 2 and result.calls == 3
     assert "confidence below" in result.errors[0]
     assert "program was required" in result.errors[1]
+
+
+def test_duplicate_decision_keys_are_not_silently_overwritten():
+    with pytest.raises(ValueError, match="Duplicate JSON key"):
+        decision('{"mode":"direct","confidence":0.1,"confidence":1.0,"answer":2}')
