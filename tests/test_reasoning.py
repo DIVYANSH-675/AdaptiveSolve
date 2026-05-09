@@ -102,3 +102,17 @@ def test_oversized_confidence_is_rejected_without_overflow():
 def test_solver_rejects_invalid_options_before_calling_backend(options):
     with pytest.raises(ValueError, match="threshold"):
         Solver(ReplayBackend([]), **options)
+
+
+def test_forced_program_rejection_reports_the_actual_cause():
+    backend = ReplayBackend(
+        [
+            dict(mode="direct", confidence=0.1, answer=2),
+            dict(mode="direct", confidence=0.99, answer=2),
+            dict(mode="program", confidence=0.9, expression="1+1"),
+        ]
+    )
+    result = Solver(backend).solve("Compute two")
+    assert result.answer == 2 and result.calls == 3
+    assert "confidence below" in result.errors[0]
+    assert "program was required" in result.errors[1]

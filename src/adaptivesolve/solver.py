@@ -85,10 +85,12 @@ class Solver:
                 parsed = decision(self.backend.respond(request))
                 if parsed["mode"] == "direct":
                     if forced_program or parsed["confidence"] < self.threshold:
-                        forced_program = True
                         errors.append(
-                            "Direct answer confidence below threshold; generate an expression"
+                            "A program was required; the backend returned another direct answer"
+                            if forced_program
+                            else "Direct answer confidence below threshold; generate an expression"
                         )
+                        forced_program = True
                         continue
                     answer = self.interpreter.check(parsed["answer"])
                     return Result(answer, "direct", attempt + 1, repairs, errors)
