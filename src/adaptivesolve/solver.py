@@ -57,6 +57,10 @@ def decision(raw):
     field = "answer" if value["mode"] == "direct" else "expression"
     if field not in value:
         raise ValueError(f"Decision is missing {field}")
+    if field == "expression" and (
+        not isinstance(value[field], str) or not value[field].strip() or len(value[field]) > 4096
+    ):
+        raise ValueError("Program decisions require an expression of 1..4096 characters")
     return value
 
 

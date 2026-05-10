@@ -121,3 +121,11 @@ def test_forced_program_rejection_reports_the_actual_cause():
 def test_duplicate_decision_keys_are_not_silently_overwritten():
     with pytest.raises(ValueError, match="Duplicate JSON key"):
         decision('{"mode":"direct","confidence":0.1,"confidence":1.0,"answer":2}')
+
+
+@pytest.mark.parametrize("expression", [None, 1, "", "   ", "1" * 4097])
+def test_program_schema_requires_a_bounded_nonempty_expression(expression):
+    import json
+
+    with pytest.raises(ValueError, match="expression of"):
+        decision(json.dumps(dict(mode="program", confidence=0.9, expression=expression)))
