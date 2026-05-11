@@ -129,3 +129,11 @@ def test_program_schema_requires_a_bounded_nonempty_expression(expression):
 
     with pytest.raises(ValueError, match="expression of"):
         decision(json.dumps(dict(mode="program", confidence=0.9, expression=expression)))
+
+
+def test_boolean_operators_short_circuit_failing_branches():
+    language = Interpreter()
+    assert language.run("False and (1/0)") is False
+    assert language.run("True or missing") is True
+    assert language.run("numbers and max(numbers)", {"numbers": [2, 7]}) == 7
+    assert language.run("numbers and max(numbers)", {"numbers": []}) == []

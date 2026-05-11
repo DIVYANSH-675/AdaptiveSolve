@@ -121,6 +121,14 @@ class Interpreter:
                 if type(node.ops[0]) not in operations:
                     raise ExpressionError("Unsupported comparison")
                 result = operations[type(node.ops[0])](child(node.left), child(node.comparators[0]))
+            elif isinstance(node, ast.BoolOp) and isinstance(node.op, (ast.And, ast.Or)):
+                result = child(node.values[0])
+                for operand in node.values[1:]:
+                    if (isinstance(node.op, ast.And) and not result) or (
+                        isinstance(node.op, ast.Or) and result
+                    ):
+                        break
+                    result = child(operand)
             elif isinstance(node, ast.IfExp):
                 result = child(node.body if child(node.test) else node.orelse)
             elif isinstance(node, ast.Subscript):
