@@ -148,8 +148,17 @@ class Interpreter:
                     result = {"sum": sum, "min": min, "max": max, "len": len, "sorted": sorted}[
                         node.func.id
                     ](value)
-                elif node.func.id in ("abs", "round") and type(value) in (int, float):
-                    result = {"abs": abs, "round": round}[node.func.id](value)
+                elif node.func.id in ("abs", "round", "sqrt", "floor", "ceil") and type(value) in (
+                    int,
+                    float,
+                ):
+                    result = {
+                        "abs": abs,
+                        "round": round,
+                        "sqrt": math.sqrt,
+                        "floor": math.floor,
+                        "ceil": math.ceil,
+                    }[node.func.id](value)
                 else:
                     raise ExpressionError("Unsupported function")
             else:

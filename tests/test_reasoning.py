@@ -137,3 +137,12 @@ def test_boolean_operators_short_circuit_failing_branches():
     assert language.run("True or missing") is True
     assert language.run("numbers and max(numbers)", {"numbers": [2, 7]}) == 7
     assert language.run("numbers and max(numbers)", {"numbers": []}) == []
+
+
+def test_selected_math_functions_remain_within_the_numeric_language():
+    language = Interpreter()
+    assert language.run("sqrt(9) + floor(2.9) + ceil(2.1)") == 8
+    with pytest.raises(ExpressionError):
+        language.run("sqrt(-1)")
+    with pytest.raises(ExpressionError):
+        language.run("math.sqrt(9)")
