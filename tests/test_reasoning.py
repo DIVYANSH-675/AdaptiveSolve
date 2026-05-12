@@ -158,3 +158,19 @@ def test_custom_interpreter_limits_apply_before_backend_execution():
         Interpreter(max_nodes=True)
     with pytest.raises(ValueError):
         Interpreter(max_bits=10000)
+
+
+def test_route_summary_does_not_invent_accuracy_without_labels():
+    from adaptivesolve.solver import summarize_results
+
+    report = summarize_results(
+        [dict(mode="program", calls=2, repairs=1), dict(mode="program", calls=1, repairs=0)]
+    )
+    assert report["by_mode"]["program"] == {
+        "count": 2,
+        "mean_calls": 1.5,
+        "repairs": 1,
+        "accuracy": None,
+    }
+    summary = benchmark(10, 3)["summary"]["by_mode"]
+    assert summary["direct"]["count"] == summary["program"]["count"] == 5

@@ -186,5 +186,27 @@ def benchmark(count=20, seed=0):
         count=count,
         accuracy=sum(row["correct"] for row in rows) / count,
         model_calls=sum(row["calls"] for row in rows),
+        summary=summarize_results(rows),
         rows=rows,
     )
+
+
+def summarize_results(rows):
+    """Summarize route cost; accuracy is unavailable without correctness labels."""
+    rows = list(rows)
+    if not rows or any(row["mode"] not in ("direct", "program") for row in rows):
+        raise ValueError("Provide nonempty direct/program results")
+    groups = {}
+    for mode in ("direct", "program"):
+        selected = [row for row in rows if row["mode"] == mode]
+        if not selected:
+            continue
+        groups[mode] = dict(
+            count=len(selected),
+            mean_calls=sum(row["calls"] for row in selected) / len(selected),
+            repairs=sum(row["repairs"] for row in selected),
+            accuracy=sum(bool(row["correct"]) for row in selected) / len(selected)
+            if all("correct" in row for row in selected)
+            else None,
+        )
+    return dict(count=len(rows), by_mode=groups)
