@@ -5,6 +5,7 @@ from pathlib import Path
 
 from . import __version__
 from .artifacts import write_json
+from .language import Interpreter
 from .solver import DemoBackend, ReplayBackend, Solver, benchmark
 
 
@@ -22,6 +23,9 @@ def main():
     )
     p.add_argument("--threshold", type=float, default=0.8)
     p.add_argument("--max-attempts", type=int, default=3)
+    p.add_argument("--max-nodes", type=int, default=256)
+    p.add_argument("--max-items", type=int, default=128)
+    p.add_argument("--max-bits", type=int, default=256)
     p.add_argument("--seed", type=int, default=13)
     p.add_argument("--count", type=int, default=20)
     p.add_argument("--output", default="runs/result.json")
@@ -40,7 +44,14 @@ def main():
                 backend = ReplayBackend(responses)
             else:
                 backend = DemoBackend()
-            report = asdict(Solver(backend, a.threshold, a.max_attempts).solve(a.question, symbols))
+            report = asdict(
+                Solver(
+                    backend,
+                    a.threshold,
+                    a.max_attempts,
+                    interpreter=Interpreter(a.max_nodes, a.max_items, a.max_bits),
+                ).solve(a.question, symbols)
+            )
     except (ValueError, OSError) as error:
         p.error(str(error))
     write_json(a.output, report)

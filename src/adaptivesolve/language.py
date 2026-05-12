@@ -13,6 +13,13 @@ class Interpreter:
     """Bounded scalar/list arithmetic. This is intentionally not general Python."""
 
     def __init__(self, max_nodes=256, max_items=128, max_bits=256):
+        for key, value, low, high in (
+            ("max_nodes", max_nodes, 1, 4096),
+            ("max_items", max_items, 1, 1024),
+            ("max_bits", max_bits, 8, 4096),
+        ):
+            if type(value) is not int or not low <= value <= high:
+                raise ValueError(f"{key} must be an integer in [{low},{high}]")
         self.max_nodes = max_nodes
         self.max_items = max_items
         self.max_bits = max_bits

@@ -146,3 +146,15 @@ def test_selected_math_functions_remain_within_the_numeric_language():
         language.run("sqrt(-1)")
     with pytest.raises(ExpressionError):
         language.run("math.sqrt(9)")
+
+
+def test_custom_interpreter_limits_apply_before_backend_execution():
+    language = Interpreter(max_items=2, max_bits=8)
+    solver = Solver(DemoBackend(), interpreter=language)
+    with pytest.raises(ExpressionError, match="bounded"):
+        solver.solve("Sum the supplied numbers.", {"numbers": [1, 2, 3]})
+    assert solver.solve("Sum the supplied numbers.", {"numbers": [1, 2]}).answer == 3
+    with pytest.raises(ValueError):
+        Interpreter(max_nodes=True)
+    with pytest.raises(ValueError):
+        Interpreter(max_bits=10000)

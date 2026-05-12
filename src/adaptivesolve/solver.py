@@ -65,7 +65,7 @@ def decision(raw):
 
 
 class Solver:
-    def __init__(self, backend: Backend, threshold=0.8, max_attempts=3):
+    def __init__(self, backend: Backend, threshold=0.8, max_attempts=3, *, interpreter=None):
         if (
             type(threshold) not in (int, float)
             or not 0 <= threshold <= 1
@@ -77,7 +77,9 @@ class Solver:
         self.backend = backend
         self.threshold = threshold
         self.max_attempts = max_attempts
-        self.interpreter = Interpreter()
+        if interpreter is not None and not isinstance(interpreter, Interpreter):
+            raise ValueError("interpreter must be an Interpreter instance")
+        self.interpreter = Interpreter() if interpreter is None else interpreter
 
     def solve(self, question, symbols=None):
         if not isinstance(question, str) or not question.strip() or len(question) > 8192:
