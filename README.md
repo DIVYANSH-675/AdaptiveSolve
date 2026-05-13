@@ -106,3 +106,12 @@ The installed `adaptivesolve-artifacts` command offers the same interface. Use f
 Metric summaries accept JSON arrays, single objects, reports containing `rows` or `episodes`, and streamed JSONL. They summarize numeric fields with population standard deviation and ignore boolean/nonnumeric fields. CSV export accepts flat scalar records; nested data must be transformed first. Comparisons report signed changes, without assuming whether larger values are better. Relative change is null when the baseline is zero.
 
 Bootstrap intervals assume independent observations. Correlated training steps or snapshots from the same run are not independent experimental repetitions; aggregate by run before interpreting an interval. These intervals do not calibrate model uncertainty.
+
+
+## Expression and routing diagnostics
+
+The arithmetic interpreter additionally supports short-circuit `and`/`or` and the one-argument `sqrt`, `floor`, and `ceil` functions. It still rejects arbitrary attribute access and imports. An invalid expression is a repairable program error, not permission to execute unrestricted Python.
+
+For `solve`, `--max-nodes`, `--max-items`, and `--max-bits` configure interpreter budgets. Accepted integer ranges are 1..4096 AST nodes, 1..1024 list items, and 8..4096 integer bits. Defaults remain 256, 128, and 256. The expression-length, nesting, and exponent restrictions still apply. Python callers can supply `Solver(..., interpreter=Interpreter(...))`.
+
+Backend decisions with duplicate JSON keys or empty/oversized expression fields are rejected. Error traces distinguish a low-confidence answer from a backend ignoring a required program route. Demo reports include per-route call counts, repair counts, and fixture accuracy. `summarize_results` reports null accuracy for unlabeled results instead of treating execution success as correctness.
