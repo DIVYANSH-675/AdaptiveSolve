@@ -115,3 +115,8 @@ The arithmetic interpreter additionally supports short-circuit `and`/`or` and th
 For `solve`, `--max-nodes`, `--max-items`, and `--max-bits` configure interpreter budgets. Accepted integer ranges are 1..4096 AST nodes, 1..1024 list items, and 8..4096 integer bits. Defaults remain 256, 128, and 256. The expression-length, nesting, and exponent restrictions still apply. Python callers can supply `Solver(..., interpreter=Interpreter(...))`.
 
 Backend decisions with duplicate JSON keys or empty/oversized expression fields are rejected. Error traces distinguish a low-confidence answer from a backend ignoring a required program route. Demo reports include per-route call counts, repair counts, and fixture accuracy. `summarize_results` reports null accuracy for unlabeled results instead of treating execution success as correctness.
+
+
+## Experiment analysis
+
+`adaptivesolve-analysis` (or `python -m adaptivesolve.analysis_cli`) provides distribution reports, matched-run comparisons, grouped summaries, and training-curve diagnostics. Reports include input-file SHA-256 fingerprints. See [ANALYSIS.md](ANALYSIS.md) for runnable examples, the Python API, statistical assumptions, and interpretation limits. These tools analyze saved observations; they do not constitute new model benchmark results.
